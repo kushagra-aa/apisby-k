@@ -5,6 +5,7 @@ from . import views
 
 app_name = 'pass'
 urlpatterns = [
-    path('genrateRandom', views.randomGenrator),
-    path('genrateRandomWithLength', views.randomGenratorWithLength),
+    path('generateRandom', views.randomGenrator),
+    path('generateRandomWithLength', views.randomGenratorWithLength),
+    path('generateRandomWithArguments', views.randomWithArguments),
 ]
