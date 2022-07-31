@@ -2,7 +2,7 @@
 # ? UTIL FUNCTIONS
 
 
-from random import random
+import random
 
 
 def list_to_string(lis):
@@ -17,7 +17,8 @@ def randomize(list, length):
 
 def shuffle_list(list):
     """Returns a shuffled list of itmes in the given list"""
-    return random.shuffle(list)
+    random.shuffle(list)
+    return list
 
 
 def shuffle_string(string):

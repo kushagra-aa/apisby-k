@@ -11,6 +11,17 @@ class RandomGenratorSerializer(serializers.Serializer):
         fields = '__all__'
 
 
+class FromStringSerializer(serializers.Serializer):
+    """
+    Takes 'String,Perfect' for the Password
+    """
+    String = serializers.CharField(required=True)
+    Perfect = serializers.BooleanField(allow_null=False)
+
+    class Meta:
+        fields = '__all__'
+
+
 class RandomWithArgumentsSerializer(serializers.Serializer):
     """
     Takes 'Length' for the Password &

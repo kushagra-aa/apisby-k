@@ -11,4 +11,5 @@ urlpatterns = [
     path('generateRandomWithMinimum', views.randomWithMinimum),
     path('generateRandomWithCustom', views.randomWithCustom),
     path('generateRandomPerfect', views.randomPerfect),
+    path('generateFromString', views.fromString),
 ]

@@ -153,3 +153,27 @@ def randomPerfect(request):
         'password': password
     }
     return Response({"data": data, "message": f"Successfully Generated Random Password of 10 characters"}, status=stus.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def fromString(request):
+    """_summary_
+        This gives a random generated password from given string
+    Args:
+        request:
+            string,perfect
+
+    Returns:
+        Response: Randomly Generated Password
+    """
+    serializedData = FromStringSerializer(data=request.data)
+    if serializedData.is_valid():
+        string = serializedData.data['String']
+        isPerfect = serializedData.data['Perfect']
+        password = generateFromString(string, isPerfect)
+        data = {
+            'password': password
+        }
+        return Response({"data": data, "message": f"Successfully Generated Password from {string}"}, status=stus.HTTP_200_OK)
+    else:
+        return Response({"data": serializedData.errors}, status=stus.HTTP_300_MULTIPLE_CHOICES)

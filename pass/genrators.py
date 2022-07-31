@@ -1,9 +1,8 @@
 from operator import le
-import random
 from sre_parse import SPECIAL_CHARS
 import string
 
-from .utils import randomize, shuffle_string, list_to_string
+from .utils import randomize, shuffle_list, shuffle_string, list_to_string
 
 # Constants
 LOWER_CASE_CHARACTERS = string.ascii_lowercase
@@ -168,3 +167,33 @@ def generateRandomWithMinimum(length, Upper, Lower, Digit, Symbol):
     selectedCharacters = list_to_string(selectedCharacters)
     shuffle_string(selectedCharacters)
     return selectedCharacters
+
+
+def generateFromString(string, isPerfect):
+    """
+    This Genrates password from the given string
+    uses LETTER_MAPS
+    Arguments:
+        string (str): string to convert to password
+        isPerfect (bool): determines if the password should have all types of characters
+    Returns:
+        password: randomly generated password using string
+    """
+    password = []
+    perfect = []
+    for letter in string:
+        password.append(list_to_string(
+            randomize(LETTER_MAPS[letter.upper()], 1)))
+    if isPerfect:
+        perfect.append(list_to_string(
+            randomize(UPPER_CASE_CHARACTERS, 1)))
+        perfect.append(list_to_string(
+            randomize(LOWER_CASE_CHARACTERS, 1)))
+        perfect.append(list_to_string(
+            randomize(SPECIAL_CHARS, 1)))
+        perfect.append(list_to_string(
+            randomize(DIGITS, 1)))
+        perfect = shuffle_list(perfect)
+        password.append(list_to_string(perfect))
+    password = list_to_string(password)
+    return password
