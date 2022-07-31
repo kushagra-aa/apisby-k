@@ -8,4 +8,7 @@ urlpatterns = [
     path('generateRandom', views.randomGenrator),
     path('generateRandomWithLength', views.randomGenratorWithLength),
     path('generateRandomWithArguments', views.randomWithArguments),
+    path('generateRandomWithMinimum', views.randomWithMinimum),
+    path('generateRandomWithCustom', views.randomWithCustom),
+    path('generateRandomPerfect', views.randomPerfect),
 ]

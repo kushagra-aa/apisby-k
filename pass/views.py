@@ -1,12 +1,11 @@
-import stat
 from django.urls import is_valid_path
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status as stus
 
-from .helpers import generateRandom, generateRandomWithArguments, generateRandomWithLength
+from .genrators import *
 
-from .serializer import RandomGenratorSerializer, RandomWithArgumentsSerializer
+from .serializer import *
 
 
 @api_view(['GET'])
@@ -31,7 +30,8 @@ def randomGenratorWithLength(request):
     """_summary_
         This gives a random generated password of the given length
     Args:
-        request
+        request:
+            length
 
     Returns:
         Response: Randomly Generated Password
@@ -53,8 +53,10 @@ def randomWithArguments(request):
     """_summary_
         This gives a random generated password of the given length
         according to the given arguments.
+        Arguments determine the kind of characters in the password
     Args:
-        request
+        request:
+            length, Upper, Lower, Digits, Symbols
 
     Returns:
         Response: Randomly Generated Password
@@ -74,3 +76,80 @@ def randomWithArguments(request):
         return Response({"data": data, "message": f"Successfully Generated Random Password of {length} characters"}, status=stus.HTTP_200_OK)
     else:
         return Response({"data": serializedData.errors}, status=stus.HTTP_300_MULTIPLE_CHOICES)
+
+
+@api_view(['GET'])
+def randomWithMinimum(request):
+    """_summary_
+        This gives a random generated password of the given length
+        according to the given arguments.
+        Arguments determine that there must be at least one of given characters
+    Args:
+        request:
+            length, Upper, Lower, Digits, Symbols
+
+    Returns:
+        Response: Randomly Generated Password
+    """
+    serializedData = RandomWithMinimumSerializer(data=request.data)
+    if serializedData.is_valid():
+        length = int(serializedData.data['Length'])
+        Upper = int(serializedData.data['Upper'])
+        Lower = int(serializedData.data['Lower'])
+        Digit = int(serializedData.data['Digits'])
+        Symbol = int(serializedData.data['Symbols'])
+        password = generateRandomWithMinimum(
+            length, Upper, Lower, Digit, Symbol)
+        data = {
+            'password': password
+        }
+        return Response({"data": data, "message": f"Successfully Generated Random Password of {length} characters"}, status=stus.HTTP_200_OK)
+    else:
+        return Response({"data": serializedData.errors}, status=stus.HTTP_300_MULTIPLE_CHOICES)
+
+
+@api_view(['GET'])
+def randomWithCustom(request):
+    """_summary_
+        This gives a random generated password of the given length
+        according to the given arguments.
+        Arguments determine the number of given characters i password
+    Args:
+        request:
+            length, Upper, Lower, Digits, Symbols
+
+    Returns:
+        Response: Randomly Generated Password
+    """
+    serializedData = RandomWithCustomSerializer(data=request.data)
+    if serializedData.is_valid():
+        length = int(serializedData.data['Length'])
+        Upper = int(serializedData.data['Upper'])
+        Lower = int(serializedData.data['Lower'])
+        Digit = int(serializedData.data['Digits'])
+        Symbol = int(serializedData.data['Symbols'])
+        password = generateRandomWithCustom(
+            length, Upper, Lower, Digit, Symbol)
+        data = {
+            'password': password
+        }
+        return Response({"data": data, "message": f"Successfully Generated Random Password of {length} characters"}, status=stus.HTTP_200_OK)
+    else:
+        return Response({"data": serializedData.errors}, status=stus.HTTP_300_MULTIPLE_CHOICES)
+
+
+@api_view(['GET'])
+def randomPerfect(request):
+    """_summary_
+        This gives a random generated password of atleast 2 of each type of character.
+    Args:
+        request
+
+    Returns:
+        Response: Randomly Generated Password
+    """
+    password = generateRandomPerfect()
+    data = {
+        'password': password
+    }
+    return Response({"data": data, "message": f"Successfully Generated Random Password of 10 characters"}, status=stus.HTTP_200_OK)
