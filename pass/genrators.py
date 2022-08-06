@@ -53,7 +53,7 @@ def generateRandom():
     Returns:
         password: randomly generated password using all characters of random length
     """
-    length = random.randint(8, 20)
+    length = random.randint(8, 40)
     return list_to_string(randomize(ALL_CHARACTERS, length))
 
 
