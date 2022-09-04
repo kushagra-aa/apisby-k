@@ -110,7 +110,7 @@ def generateRandomWithCustom(length, Upper, Lower, Digit, Symbol):
     if Digit > 0:
         selectedCharacters.append(list_to_string(randomize(DIGITS, Digit)))
     selectedCharacters = list_to_string(selectedCharacters)
-    shuffle_string(selectedCharacters)
+    selectedCharacters = shuffle_string(selectedCharacters)
     return selectedCharacters
 
 
@@ -134,11 +134,11 @@ def generateRandomPerfect():
     selectedCharacters.append(list_to_string(
         randomize(ALL_CHARACTERS, length)))
     selectedCharacters = list_to_string(selectedCharacters)
-    shuffle_string(selectedCharacters)
+    selectedCharacters = shuffle_string(selectedCharacters)
     return selectedCharacters
 
 
-def generateRandomWithMinimum(length, Upper, Lower, Digit, Symbol):
+def generateRandomWithMinimum(length):
     """
     This Genrates password that will have atleast one character from the given character types
     Arguments:
@@ -148,25 +148,21 @@ def generateRandomWithMinimum(length, Upper, Lower, Digit, Symbol):
         isUpper,isLower,isDigit,isSymbol: booleans that determine the characters in the password
     """
     selectedCharacters = []
-    if Upper:
-        selectedCharacters.append(
-            list_to_string(randomize(UPPER_CASE_CHARACTERS, 1)))
-        length -= 1
-    if Lower:
-        selectedCharacters.append(
-            list_to_string(randomize(LOWER_CASE_CHARACTERS, 1)))
-        length -= 1
-    if Symbol:
-        selectedCharacters.append(
-            list_to_string(randomize(SPECIAL_CHARS, 1)))
-        length -= 1
-    if Digit:
-        selectedCharacters.append(list_to_string(randomize(DIGITS, 1)))
-        length -= 1
+    selectedCharacters.append(
+        list_to_string(randomize(UPPER_CASE_CHARACTERS, 1)))
+    length -= 1
+    selectedCharacters.append(
+        list_to_string(randomize(LOWER_CASE_CHARACTERS, 1)))
+    length -= 1
+    selectedCharacters.append(
+        list_to_string(randomize(SPECIAL_CHARS, 1)))
+    length -= 1
+    selectedCharacters.append(list_to_string(randomize(DIGITS, 1)))
+    length -= 1
     selectedCharacters.append(list_to_string(
         randomize(ALL_CHARACTERS, length)))
     selectedCharacters = list_to_string(selectedCharacters)
-    shuffle_string(selectedCharacters)
+    selectedCharacters = shuffle_string(selectedCharacters)
     return selectedCharacters
 
 

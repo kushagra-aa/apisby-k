@@ -7,7 +7,7 @@ from .genrators import *
 from .serializer import *
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def randomGenrator(request):
     """_summary_
         This gives a random generated password of the random length
@@ -24,7 +24,7 @@ def randomGenrator(request):
     return Response({"data": data, "message": f"Successfully Generated Random Password"}, status=stus.HTTP_200_OK)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def randomGenratorWithLength(request):
     """_summary_
         This gives a random generated password of the given length
@@ -47,7 +47,7 @@ def randomGenratorWithLength(request):
         return Response({"data": serializedData.errors}, status=stus.HTTP_300_MULTIPLE_CHOICES)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def randomWithArguments(request):
     """_summary_
         This gives a random generated password of the given length
@@ -77,7 +77,7 @@ def randomWithArguments(request):
         return Response({"data": serializedData.errors}, status=stus.HTTP_300_MULTIPLE_CHOICES)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def randomWithMinimum(request):
     """_summary_
         This gives a random generated password of the given length
@@ -93,12 +93,7 @@ def randomWithMinimum(request):
     serializedData = RandomWithMinimumSerializer(data=request.data)
     if serializedData.is_valid():
         length = int(serializedData.data['Length'])
-        Upper = int(serializedData.data['Upper'])
-        Lower = int(serializedData.data['Lower'])
-        Digit = int(serializedData.data['Digits'])
-        Symbol = int(serializedData.data['Symbols'])
-        password = generateRandomWithMinimum(
-            length, Upper, Lower, Digit, Symbol)
+        password = generateRandomWithMinimum(length)
         data = {
             'password': password
         }
@@ -107,7 +102,7 @@ def randomWithMinimum(request):
         return Response({"data": serializedData.errors}, status=stus.HTTP_300_MULTIPLE_CHOICES)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def randomWithCustom(request):
     """_summary_
         This gives a random generated password of the given length
@@ -137,7 +132,7 @@ def randomWithCustom(request):
         return Response({"data": serializedData.errors}, status=stus.HTTP_300_MULTIPLE_CHOICES)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def randomPerfect(request):
     """_summary_
         This gives a random generated password of atleast 2 of each type of character.
@@ -154,7 +149,7 @@ def randomPerfect(request):
     return Response({"data": data, "message": f"Successfully Generated Random Password of 10 characters"}, status=stus.HTTP_200_OK)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def fromString(request):
     """_summary_
         This gives a random generated password from given string
